@@ -1,5 +1,5 @@
 // Array of operators
-const operators = ["+","-","x","/"];
+const operators = ["+","-","x","/","*"];
 
 // Array of numbers
 const numbers = ["0","1","2","3","4","5","6","7","8","9","."];
@@ -188,18 +188,27 @@ document.addEventListener("keydown", (event) => {
     if (operators.includes(key)){
     // Perform the same action as clicking the corresponding button
         if (partialResult.textContent == ""){
-            showOperator(key);
-            showResult(partialInput.textContent);
-            clearInput();
+            if (key === "*") showOperator("x");
+            else {
+                showOperator(key);
+                showResult(partialInput.textContent);
+                clearInput();
+            }
         } else{
             if(partialOperator.textContent == "") {
-                showOperator(key);
+                if (key === "*") showOperator("x");
+                else {
+                    showOperator(key);
+                }
             } else {
                 tempResult = operate(partialResult.textContent,
                                     partialInput.textContent,
                                     partialOperator.textContent);
-                showResult(tempResult);                
-                showOperator(key);
+                showResult(tempResult);
+                if (key === "*") showOperator("x");
+                else {
+                    showOperator(key);
+                }
                 clearInput();
             }
         }
