@@ -17,3 +17,6 @@ This is a simple calculator application implemented using HTML, CSS, and JavaScr
 ## Limitations
 - Division by zero is not allowed. If the user attempts to divide by zero, an error message will be displayed.
 - For visual simplification, the calculator supports arithmetic operations with up to three decimal places. Results are rounded to three decimal places if necessary.
+
+## Live Preview
+A live preview of the calculator app is available here. You can try out the calculator's functionality directly in your web browser.
