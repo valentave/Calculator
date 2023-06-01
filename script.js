@@ -169,3 +169,68 @@ buttons.forEach((button) => {
         }
     })
 });
+
+document.addEventListener("keydown", (event) => {
+    const key = event.key;
+    // If the result is the message that you cant divide by 0
+    if (partialResult.textContent == "You can't divide by 0") {
+        clearResult();
+        clearOperator();
+    };
+    // Check if the key pressed is a number
+    if (numbers.includes(key)) {
+    // Perform the same action as clicking the corresponding button
+      if (partialInput.textContent == "0") clearInput(""); 
+      showInput(key);
+    }
+    
+    // Check if the key pressed is an operator
+    if (operators.includes(key)){
+    // Perform the same action as clicking the corresponding button
+        if (partialResult.textContent == ""){
+            showOperator(key);
+            showResult(partialInput.textContent);
+            clearInput();
+        } else{
+            if(partialOperator.textContent == "") {
+                showOperator(key);
+            } else {
+                tempResult = operate(partialResult.textContent,
+                                    partialInput.textContent,
+                                    partialOperator.textContent);
+                showResult(tempResult);                
+                showOperator(key);
+                clearInput();
+            }
+        }
+    }
+    
+    // Check if the key pressed is the Enter (=) key
+    if (key === "Enter") {
+        // Perform the same action as clicking the corresponding button
+        if(partialResult.textContent == "" || partialOperator.textContent == "") {
+            showResult(partialInput.textContent);
+            clearInput();
+        } else{
+            tempResult = operate(partialResult.textContent,
+                                partialInput.textContent,
+                                partialOperator.textContent);
+            showResult(tempResult);
+            clearInput();
+        }
+    clearOperator();
+    }
+    
+    // Check if the key pressed is the Backspace (delete) key
+    if (key === "Backspace" || key === "Delete") {
+      // Perform the same action as clicking the corresponding button
+      clearInput();
+    }
+
+    if(key === "Escape") {
+        clearResult();
+        clearOperator();
+        clearInput();
+    }
+  });
+  
