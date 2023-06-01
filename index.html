@@ -4,36 +4,52 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Calculator</title>
 </head>
 <body>
     <div id="calc-container">
         <div id="calc-screen">
             <p id="partial-result"></p>
             <p id="partial-operator"></p>
-            <p id="partial-imput"></p>
+            <p id="partial-input"></p>
         </div>
         <div id="calc-buttons">
-            <button id="clear">CLEAR</button>
-            <button id="erase">ERASE</button>
-            <button id="ans">ANS</button>
-            <button id="+">+</button>
-            <button id="-">-</button>
-            <button id="x">x</button>
-            <button id="/">÷</button>
-            <button id="=">=</button>
-            <button id="1">1</button>
-            <button id="2">2</button>
-            <button id="3">3</button>
-            <button id="4">4</button>
-            <button id="5">5</button>
-            <button id="6">6</button>
-            <button id="7">7</button>
-            <button id="8">8</button>
-            <button id="9">9</button>
-            <button id="0">0</button>
-            <button id=".">.</button>
+            <div class="file-one">
+                <button id="clear">CLEAR</button>
+                <button id="erase">ERASE</button>
+                <button id="=" class="equal">=</button>
+            </div>
+            <div class="numbers">
+                <div class="file-two">
+                    <button id="1" class="btn-number">1</button>
+                    <button id="2" class="btn-number">2</button>
+                    <button id="3" class="btn-number">3</button>
+                    <button id="/">÷</button>
+                </div>
+                <div class="file-three">
+                    <button id="4" class="btn-number">4</button>
+                    <button id="5" class="btn-number">5</button>
+                    <button id="6" class="btn-number">6</button>
+                    <button id="x">x</button>
+                </div>
+                <div class="file-four">
+                    <button id="7" class="btn-number">7</button>
+                    <button id="8" class="btn-number">8</button>
+                    <button id="9" class="btn-number">9</button>
+                    <button id="-">-</button>
+                </div>
+                <div class="file-five">
+                    <button id="ans" class="btn-number">ANS</button>
+                    <button id="0" class="btn-number">0</button>
+                    <button id="." class="btn-number">,</button>
+                    <button id="+">+</button>
+                </div>
+            </div>
         </div>
+        <footer>
+            © Valentín Taverna
+        </footer>
     </div>
 </body>
 <script src="script.js"></script>

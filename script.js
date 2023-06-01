@@ -6,14 +6,14 @@ const numbers = ["0","1","2","3","4","5","6","7","8","9","."];
 
 // Get references to DOM elements
 const partialResult = document.querySelector("#partial-result");
-const partialImput = document.querySelector("#partial-imput");
+const partialInput = document.querySelector("#partial-input");
 const partialOperator = document.querySelector("#partial-operator")
 
 // Initialize variables
 let tempResult = 0;
 partialOperator.textContent = "";
 partialResult.textContent = "";
-partialImput.textContent = "0";
+partialInput.textContent = "0";
 
 // Function to add two numbers
 let add = function(num1, num2 = 0){
@@ -32,7 +32,7 @@ let multiply = function(num1, num2 = 1){
 
 // Function to divide two numbers
 let divide = function(num1, num2 = 1){
-    if (num2 == "0") return "No se puede dividir entre 0."
+    if (num2 == "0") return "You can't divide by 0"
     return parseFloat(num1) / parseFloat(num2);
 }
 
@@ -52,7 +52,11 @@ let operate = function(num1, num2, operator){
     else if (operator == "x") result = multiply(num1, num2);
     else if (operator == "-") result = subtract(num1, num2);
     else if (operator == "/") result = divide(num1, num2);
-    if (result == "No se puede dividir entre 0.") return "No se puede dividir entre 0.";
+    if (result == "You can't divide by 0") {
+        clearInput();
+        clearOperator();
+        return "You can't divide by 0"
+    };
     result = roundToThreeDecimals(result);
     return result
 }
@@ -65,8 +69,8 @@ let showResult = function(value){
 }
 
 // Function to display the input
-let showImput = function(value){
-    partialImput.textContent += value;
+let showInput = function(value){
+    partialInput.textContent += value;
 }
 
 // Function to display the operator
@@ -87,30 +91,35 @@ let clearResult = function(){
 }
 
 // Function to clear the input
-let clearImput = function(value = "0"){
-    partialImput.textContent = value;
+let clearInput = function(value = "0"){
+    partialInput.textContent = value;
 }
 
 // EVENT BUTTONS
 
 // Get all the buttons
-const buttons = document.querySelectorAll("#calc-buttons > button");
+const buttons = document.querySelectorAll("#calc-buttons button");
 
 // Add click event listener to each button
 buttons.forEach((button) => {
     button.addEventListener("click", () =>{
+        // If the result is the message that you cant divide by 0
+        if (partialResult.textContent == "You can't divide by 0") {
+            clearResult();
+            clearOperator();
+        };
         if (numbers.includes(button.id)) {
             // If the button is a number, append it to the input
-            if (partialImput.textContent == "0") clearImput(""); 
-            showImput(button.id); // 
+            if (partialInput.textContent == "0") clearInput(""); 
+            showInput(button.id);
         } else if (operators.includes(button.id)){
             // If the button is an operator
             if (partialResult.textContent == ""){
                 // If there is no previous result, update the operator and display 
                 // the current input as the result
                 showOperator(button.id);
-                showResult(partialImput.textContent);
-                clearImput();
+                showResult(partialInput.textContent);
+                clearInput();
             } else{
                 // If there is a previous result
                 if(partialOperator.textContent == "") {
@@ -120,11 +129,11 @@ buttons.forEach((button) => {
                     // If there is a previous operator, perform the operation with the 
                     // previous result, current input, and previous operator
                     tempResult = operate(partialResult.textContent,
-                                        partialImput.textContent,
+                                        partialInput.textContent,
                                         partialOperator.textContent);
                     showResult(tempResult);                
                     showOperator(button.id);
-                    clearImput();
+                    clearInput();
                 }
             }
         } else if (button.id == "="){
@@ -132,31 +141,31 @@ buttons.forEach((button) => {
             if(partialResult.textContent == "" || partialOperator.textContent == "") {
                 // If there is no previous result or operator, display the current input
                 // as the result
-                showResult(partialImput.textContent);
-                clearImput();
+                showResult(partialInput.textContent);
+                clearInput();
             } else{
                 // If there is a previous result and operator, perform the operation and
                 // display the result
                 tempResult = operate(partialResult.textContent,
-                                     partialImput.textContent,
+                                     partialInput.textContent,
                                      partialOperator.textContent);
                 showResult(tempResult);
-                clearImput();
+                clearInput();
             }
             clearOperator();
         } else if (button.id == "ans"){
             // If the button is the "ANS" button, clear the input and display the 
             // previous result as the new input
-            clearImput(""); 
-            showImput(partialResult.textContent);
+            clearInput(""); 
+            showInput(partialResult.textContent);
         } else if (button.id == "clear"){
             // If the button is the "CLEAR" button, clear the result, operator, and input
             clearResult();
             clearOperator();
-            clearImput();
+            clearInput();
         } else if (button.id == "erase") {
             // If the button is the "ERASE" button, clear the input
-            clearImput();
+            clearInput();
         }
     })
 });
